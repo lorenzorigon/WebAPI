@@ -1,0 +1,13 @@
+#titulo {
+	display: inline;
+}
+
+.CabecalhoCadastro {
+	padding-top: 25px;
+	padding-bottom: 50px;
+}
+
+.pull-right {
+	float:right;
+}
+
