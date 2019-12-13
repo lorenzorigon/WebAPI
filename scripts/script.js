@@ -64,12 +64,20 @@ function carregaEstudantes() {
 	var xhr = new XMLHttpRequest();
 
 
-	xhr.open(`GET`, `https://localhost:44389/api/Aluno/`, true);
+	xhr.open(`GET`, `https://localhost:44389/Recuperar`, true);
 
-	xhr.onload = function () {
-		var estudantes = JSON.parse(this.responseText);
-		for(var indice in estudantes){
-			adicionaLinha(estudantes[indice]);
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 ){
+			if(this.status == 200){ 
+				var estudantes = JSON.parse(this.responseText);
+				for(var indice in estudantes){
+					adicionaLinha(estudantes[indice]);
+				}
+			}
+			else if(this.status == 500){
+				var erro = JSON.parse(this.responseText);
+				console.log(erro);
+			}
 		}
 	}
 
@@ -92,7 +100,7 @@ function salvarEstudantes(metodo, id, corpo) {
 
 function excluirEstudante(id){
 	var xhr = new XMLHttpRequest();
-	
+
 	xhr.open('DELETE', `https://localhost:44389/api/Aluno/${id}`, false);
 	xhr.send();
 }
