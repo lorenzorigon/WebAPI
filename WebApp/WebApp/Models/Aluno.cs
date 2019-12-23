@@ -19,12 +19,12 @@ namespace WebApp.Models
         public string data { get; set; }
         public string telefone { get; set; }
         public int ra { get; set; }
-        public List<Aluno> ListarAlunos()
+        public List<Aluno> ListarAlunos(int? id = null)
         {
             try
             {
                 var alunoDB = new AlunoDAO();
-               return alunoDB.ListarAlunosDB();
+                return alunoDB.ListarAlunosDB(id);
 
             }
             catch (Exception e)
@@ -36,7 +36,7 @@ namespace WebApp.Models
         }
 
 
-        
+
 
         public bool ReescreverArquivo(List<Aluno> listaAlunos)
         {
@@ -62,40 +62,36 @@ namespace WebApp.Models
 
         }
 
-        public Aluno Atualizar(int id, Aluno Aluno)
+        public void Atualizar(Aluno aluno)
         {
-            List<Aluno> listaAlunos = this.ListarAlunos();
+            try
+            {
+                var alunoDB = new AlunoDAO();
+                alunoDB.AtualizarAlunoDB(aluno);
 
-            int itemIndex = listaAlunos.FindIndex(x => x.id == id);
-            if (itemIndex >= 0)
-            {
-                Aluno.id = id;
-                listaAlunos[itemIndex] = Aluno;
             }
-            else
+            catch (Exception e)
             {
-                return null;
+
+                throw new Exception($"Erro: {e.Message}");
             }
-            ReescreverArquivo(listaAlunos);
-            return Aluno;
+
         }
 
-        public bool Deletar(int id)
+        public void Deletar(int id)
         {
-            List<Aluno> listaAlunos = this.ListarAlunos();
+            try
+            {
+                var alunoDB = new AlunoDAO();
+                alunoDB.DeletarAlunoDB(id);
 
-            int itemIndex = listaAlunos.FindIndex(x => x.id == id);
-            if (itemIndex >= 0)
+            }
+            catch (Exception e)
             {
 
-                listaAlunos.RemoveAt(itemIndex);
+                throw new Exception($"Erro: {e.Message}");
             }
-            else
-            {
-                return false;
-            }
-            ReescreverArquivo(listaAlunos);
-            return true;
+
         }
 
     }
