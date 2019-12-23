@@ -13,6 +13,11 @@ namespace WebApp.Controllers
     [RoutePrefix("api/aluno")]
     public class AlunoController : ApiController
     {
+        private Aluno _aluno; 
+        public AlunoController()
+        {
+            _aluno = new Aluno();
+        }
 
         // GET: api/Aluno
         [HttpGet]
@@ -21,8 +26,8 @@ namespace WebApp.Controllers
         {
             try
             {
-                Aluno aluno = new Aluno();
-                return Ok(aluno.ListarAlunos());
+                
+                return Ok(_aluno.ListarAlunos());
 
             }
             catch (Exception ex)
@@ -36,8 +41,7 @@ namespace WebApp.Controllers
         [Route("Recuperar/{id:int}/{nome?}/{sobrenome?}")]
         public Aluno Get(int id, string nome = null, string sobrenome = null)
         {
-            Aluno aluno = new Aluno();
-            return aluno.ListarAlunos().FirstOrDefault();
+            return _aluno.ListarAlunos().FirstOrDefault();
         }
 
         [HttpGet]
@@ -46,8 +50,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                Aluno aluno = new Aluno();
-                IEnumerable<Aluno> alunos = aluno.ListarAlunos().Where(x => x.data == data || x.nome == nome);
+                IEnumerable<Aluno> alunos = _aluno.ListarAlunos().Where(x => x.data == data || x.nome == nome);
 
                 if (!alunos.Any())
                     return NotFound();
@@ -68,7 +71,6 @@ namespace WebApp.Controllers
         {
             try
             {
-                Aluno _aluno = new Aluno();
                 _aluno.Inserir(aluno);
 
                 return Ok(_aluno.ListarAlunos());
@@ -86,7 +88,6 @@ namespace WebApp.Controllers
         {
             try
             {
-                Aluno _aluno = new Aluno();
                 _aluno.id = id;
                 _aluno.Atualizar(aluno);
 
@@ -104,7 +105,6 @@ namespace WebApp.Controllers
         {
             try
             {
-                Aluno _aluno = new Aluno();
                 _aluno.Deletar(id);
 
                 return Ok("Deletado com Sucesso!");

@@ -19,12 +19,18 @@ namespace WebApp.Models
         public string data { get; set; }
         public string telefone { get; set; }
         public int ra { get; set; }
+        private AlunoDAO _alunoDB;
+
+        public Aluno()
+        {
+            _alunoDB = new AlunoDAO();
+        }
         public List<Aluno> ListarAlunos(int? id = null)
         {
             try
             {
-                var alunoDB = new AlunoDAO();
-                return alunoDB.ListarAlunosDB(id);
+
+                return _alunoDB.ListarAlunosDB(id);
 
             }
             catch (Exception e)
@@ -50,8 +56,8 @@ namespace WebApp.Models
         {
             try
             {
-                var alunoDB = new AlunoDAO();
-                alunoDB.InserirAlunoDB(aluno);
+
+                _alunoDB.InserirAlunoDB(aluno);
 
             }
             catch (Exception e)
@@ -66,8 +72,8 @@ namespace WebApp.Models
         {
             try
             {
-                var alunoDB = new AlunoDAO();
-                alunoDB.AtualizarAlunoDB(aluno);
+
+                _alunoDB.AtualizarAlunoDB(aluno);
 
             }
             catch (Exception e)
@@ -82,8 +88,8 @@ namespace WebApp.Models
         {
             try
             {
-                var alunoDB = new AlunoDAO();
-                alunoDB.DeletarAlunoDB(id);
+
+                _alunoDB.DeletarAlunoDB(id);
 
             }
             catch (Exception e)

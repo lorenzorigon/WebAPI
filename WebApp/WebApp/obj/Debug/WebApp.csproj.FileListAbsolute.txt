@@ -136,3 +136,7 @@ C:\Users\loren\Desktop\Academico\WebApp\WebApp\obj\Debug\WebApp.csprojAssemblyRe
 C:\Users\loren\Desktop\Academico\WebApp\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\Users\loren\Desktop\Academico\WebApp\WebApp\obj\Debug\WebApp.dll
 C:\Users\loren\Desktop\Academico\WebApp\WebApp\obj\Debug\WebApp.pdb
+C:\Users\loren\Desktop\Academico\WebApp\WebApp\bin\WebApp.xml
+C:\Users\loren\Desktop\Academico\WebApp\WebApp\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\loren\Desktop\Academico\WebApp\WebApp\bin\Swashbuckle.Core.dll
+C:\Users\loren\Desktop\Academico\WebApp\WebApp\bin\WebActivatorEx.dll
