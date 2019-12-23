@@ -21,45 +21,22 @@ namespace WebApp.Models
         public int ra { get; set; }
         public List<Aluno> ListarAlunos()
         {
-            var caminhoArquivo = HostingEnvironment.MapPath(@"~/App_Data\Base.json");
-            var json = File.ReadAllText(caminhoArquivo);
-            List<Aluno> listaAlunos = JsonConvert.DeserializeObject<List<Aluno>>(json);
-            return listaAlunos;
-        }
-
-
-        public List<Aluno> ListarAlunosDB()
-        {
-
-            string stringConexao = ConfigurationManager.AppSettings["ConnectionString"];
-            IDbConnection conexao;
-            conexao = new SqlConnection(stringConexao);
-            conexao.Open();     
-
-            var listaAlunos = new List<Aluno>();
-
-            IDbCommand selectCmd = conexao.CreateCommand();
-            selectCmd.CommandText = "SELECT * FROM alunos";
-
-            IDataReader resultado = selectCmd.ExecuteReader();
-
-            while (resultado.Read())
+            try
             {
-                var alu = new Aluno();
-                alu.id = Convert.ToInt32(resultado["Id"]);
-                alu.nome = Convert.ToString(resultado["nome"]);
-                alu.sobrenome = Convert.ToString(resultado["sobrenome"]);
-                alu.ra = Convert.ToInt32(resultado["ra"]);
-
-                listaAlunos.Add(alu);
+                var alunoDB = new AlunoDAO();
+               return alunoDB.ListarAlunosDB();
 
             }
+            catch (Exception e)
+            {
 
-            conexao.Close();
+                throw new Exception($"Erro: {e.Message}");
+            }
 
-
-            return listaAlunos;
         }
+
+
+        
 
         public bool ReescreverArquivo(List<Aluno> listaAlunos)
         {
@@ -69,15 +46,20 @@ namespace WebApp.Models
             return true;
         }
 
-        public Aluno Inserir(Aluno Aluno)
+        public void Inserir(Aluno aluno)
         {
-            List<Aluno> listaAlunos = this.ListarAlunos();
+            try
+            {
+                var alunoDB = new AlunoDAO();
+                alunoDB.InserirAlunoDB(aluno);
 
-            int maxId = listaAlunos.Max(x => x.id);
-            Aluno.id = maxId + 1;
-            listaAlunos.Add(Aluno);
-            ReescreverArquivo(listaAlunos);
-            return Aluno;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception($"Erro: {e.Message}");
+            }
+
         }
 
         public Aluno Atualizar(int id, Aluno Aluno)
