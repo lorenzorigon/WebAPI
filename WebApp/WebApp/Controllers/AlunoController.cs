@@ -22,7 +22,7 @@ namespace WebApp.Controllers
             try
             {
                 Aluno aluno = new Aluno();
-                return Ok(aluno.ListarAlunos());
+                return Ok(aluno.ListarAlunosDB());
 
             }
             catch (Exception ex)
