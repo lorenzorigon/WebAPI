@@ -11,21 +11,16 @@ using System.Web.Hosting;
 
 namespace WebApp.Models
 {
-    public class Aluno
+    public class AlunoModel
     {
-        public int id { get; set; }
-        public string nome { get; set; }
-        public string sobrenome { get; set; }
-        public string data { get; set; }
-        public string telefone { get; set; }
-        public int ra { get; set; }
+        
         private AlunoDAO _alunoDB;
 
-        public Aluno()
+        public AlunoModel()
         {
             _alunoDB = new AlunoDAO();
         }
-        public List<Aluno> ListarAlunos(int? id = null)
+        public List<AlunoDTO> ListarAlunos(int? id = null)
         {
             try
             {
@@ -44,7 +39,7 @@ namespace WebApp.Models
 
 
 
-        public bool ReescreverArquivo(List<Aluno> listaAlunos)
+        public bool ReescreverArquivo(List<AlunoDTO> listaAlunos)
         {
             var caminhoArquivo = HostingEnvironment.MapPath(@"~/App_Data\Base.json");
             var json = JsonConvert.SerializeObject(listaAlunos, Formatting.Indented);
@@ -52,7 +47,7 @@ namespace WebApp.Models
             return true;
         }
 
-        public void Inserir(Aluno aluno)
+        public void Inserir(AlunoDTO aluno)
         {
             try
             {
@@ -68,7 +63,7 @@ namespace WebApp.Models
 
         }
 
-        public void Atualizar(Aluno aluno)
+        public void Atualizar(AlunoDTO aluno)
         {
             try
             {

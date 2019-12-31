@@ -39,9 +39,17 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [Route("Recuperar/{id:int}/{nome?}/{sobrenome?}")]
-        public Aluno Get(int id, string nome = null, string sobrenome = null)
+        public IHttpActionResult RecuperarPorId(int id, string nome = null, string sobrenome = null)
         {
-            return _aluno.ListarAlunos().FirstOrDefault();
+            try
+            {
+                return Ok(_aluno.ListarAlunos().FirstOrDefault());
+            }
+            catch (Exception e)
+            {
+
+                return InternalServerError(e);
+            }
         }
 
         [HttpGet]
@@ -50,7 +58,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                IEnumerable<Aluno> alunos = _aluno.ListarAlunos().Where(x => x.data == data || x.nome == nome);
+                IEnumerable<AlunoDTO> alunos = _aluno.ListarAlunos().Where(x => x.data == data || x.nome == nome);
 
                 if (!alunos.Any())
                     return NotFound();
@@ -67,7 +75,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody]Aluno aluno)
+        public IHttpActionResult Post([FromBody]AlunoDTO aluno)
         {
             try
             {
@@ -84,11 +92,11 @@ namespace WebApp.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]Aluno aluno)
+        public IHttpActionResult Put(int id, [FromBody]AlunoDTO aluno)
         {
             try
             {
-                _aluno.id = id;
+                aluno.id = id;
                 _aluno.Atualizar(aluno);
 
                 return Ok(_aluno.ListarAlunos(id).FirstOrDefault());

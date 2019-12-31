@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Models\Aluno.cs" />
     <Compile Include="Models\AlunoDAO.cs" />
+    <Compile Include="Models\AlunoDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
