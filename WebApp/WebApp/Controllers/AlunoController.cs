@@ -13,10 +13,10 @@ namespace WebApp.Controllers
     [RoutePrefix("api/aluno")]
     public class AlunoController : ApiController
     {
-        private Aluno _aluno; 
+        private AlunoModel _aluno; 
         public AlunoController()
         {
-            _aluno = new Aluno();
+            _aluno = new AlunoModel();
         }
 
         // GET: api/Aluno
